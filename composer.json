@@ -1,0 +1,16 @@
+{
+    "name": "aislan/grud-php-poo",
+    "description": "Projeto GRUD Em PHP orientado a Objetos",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Aislan"
+        }
+    ],
+    "require": {}
+}
