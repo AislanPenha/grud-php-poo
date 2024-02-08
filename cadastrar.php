@@ -8,12 +8,17 @@
   $descricao = $_POST["descricao"] ?? '';
   $ativo = $_POST["ativo"] ?? '';
 
+  $obVaga = new Vaga();
+
   if($titulo && $descricao){
-    $obVaga = new Vaga;
+    
     $obVaga->titulo = $titulo;
     $obVaga->descricao = $descricao;
-    $obVaga->ativo = $ativo;
+    $obVaga->status = $ativo;
     $obVaga->cadastrar();
+
+    header('location: index.php?status=success');
+    exit;
   }
 
   require_once __DIR__."/includes/header.php";

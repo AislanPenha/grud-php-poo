@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Db\Database;
+use \PDO;
 
 class Vaga {
     public $id;
@@ -22,7 +23,7 @@ class Vaga {
      * TDefine se a vaga ativa
      * @var string(s/n)
      */
-    public $ativo;
+    public $status;
 
      /**
      * Data da publicação da vaga
@@ -38,10 +39,21 @@ class Vaga {
         $obDatabase = new Database('vagas');
         
         $this->id = $obDatabase->insert([
-                            'titulo' => $this->titulo,
-                            'descricao' => $this->descricao,
-                            'status' => $this->ativo,
-                            'data' => $this->data
-                            ]);
+                                        'titulo' => $this->titulo,
+                                        'descricao' => $this->descricao,
+                                        'status' => $this->status,
+                                        'data' => $this->data
+                                        ]);
+        return true;
+    }
+
+    public static function getVagas($where = null, $order = null, $limit = null) {
+        return (new Database('vagas'))->select($where, $order, $limit)
+                                      ->fetchAll(PDO::FETCH_CLASS, self::class);
+    }
+    public static function getVaga($id) {
+        return (new Database('vagas'))->select('id = '.$id)
+                                      ->fetchObject(self::class);
+                              
     }
 }
